@@ -4,12 +4,19 @@ import Formulario from './componentes/Formulario';
 
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const[colaboradores, setColaboradores] = useState([]);
+
+  const aoNovoColaboradorAdicionado = (colaborador) => {
+    console.log(colaborador)
+    //TÔ ESPALHANDO OS COLABORADORES ANTIGOS, E COLOCANDO O NOVO COLABORADOR
+    setColaboradores([...colaboradores, colaborador])
+  }
 
   return (
     <>
         <Banner />
-        <Formulario />
+        <Formulario aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
     </>
   );
 }
