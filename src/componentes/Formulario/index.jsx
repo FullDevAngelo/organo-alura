@@ -5,15 +5,6 @@ import Botao from '../Botao';
 import { useState } from 'react';
 
 const Formulario = (props) => {
-    const times = [
-        'Programação',
-        'Front-End',
-        'Data Science',
-        'Devops',
-        'UX e Design',
-        'Mobile',
-        'Inovação e Gestão'
-    ]
 
     const [nome, setNome] = useState('');
     const [cargo, setCargo] = useState('');
@@ -22,18 +13,22 @@ const Formulario = (props) => {
 
 
     const aoSalvar = (evento) => {
-        evento.preventDefault(); {/* ELE FALA PRO NAVEGADOR: "DEIXA QUE É EU QUE MANDO AQUI" */}
+        evento.preventDefault(); {/* ELE FALA PRO NAVEGADOR: "DEIXA QUE É EU QUE MANDO AQUI", ELE PREVINE O COMPORTAMENTO PADRÃO DO NAVEGADOR */}
         props.aoColaboradorCadastrado({
             nome: nome, 
             cargo: cargo, 
             imagem: imagem, 
             time: time
         })
+        setNome('')
+        setCargo('')
+        setImagem('')
+        setTime('')
     }
 
     return (
         <section className='formulario'>
-            <form onSubmit={aoSalvar}>
+            <form onSubmit={aoSalvar}> {/* O SUBMIT SERVE PARA VALIDAR O FORMULÁRIO, ELE VAI VERIFICAR SE TUDO FOI PREENCHIDO DE ACORDO COM AS REQUISIÇÕES */}
                 <h2>Preencha os dados para criar o card do colaborador</h2>
                 <CampoTexto 
                     obrigatorio={true} 
@@ -58,7 +53,7 @@ const Formulario = (props) => {
                 <ListaSuspensa 
                     obrigatorio={true} 
                     label="Time" 
-                    itens={times}
+                    itens={props.times}
                     valor={time}
                     aoAlterado={valor => setTime(valor)}
                 />
